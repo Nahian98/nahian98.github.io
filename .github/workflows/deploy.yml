@@ -31,7 +31,11 @@ jobs:
       - name: Configure Pages
         id: pages
         # Outputs base_path (e.g. "/MyPortFolio") and base_url (full origin+path).
+        # enablement: true turns on GitHub Pages automatically on the first run,
+        # so no manual Settings -> Pages step is needed.
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Setup Node
         uses: actions/setup-node@v4
