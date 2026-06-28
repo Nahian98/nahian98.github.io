@@ -31,6 +31,32 @@ export const projects: Project[] = [
     accent: 'green',
     featured: true,
   },
+  {
+    id: 'entrix',
+    title: 'Entrix',
+    tagline: 'Privacy-first, offline attendance tracking powered by geofencing.',
+    description:
+      'A privacy-first Android app that automatically logs office entry and exit using the Geofencing API — no account, no cloud, no analytics, everything stays on-device. Built as a showcase of production-grade modern Android engineering: a feature-first, multi-module Clean Architecture with a pure-JVM, framework-independent domain layer that is fully unit-tested. A deliberate ENTER → DWELL → EXIT reconciliation policy ignores boundary jitter and brief drive-bys while still recording the true entry time, and geofences are restored after device reboot — all with no continuous polling or foreground service.',
+    tags: ['Location', 'Offline-first', 'Architecture'],
+    features: [
+      'Automatic, battery-friendly entry/exit detection via the Geofencing API (no polling, no foreground service)',
+      'Feature-first multi-module Clean Architecture with a pure-JVM, unit-tested domain',
+      'ENTER → DWELL → EXIT reconciliation that ignores jitter yet keeps the real entry time',
+      '100% local & private — no account, network or tracking anywhere in the dependency graph',
+      'Material 3 UI with dynamic color, light/dark themes; geofences restored after reboot',
+      'Gradle convention plugins (build-logic), 24 JVM unit tests + an instrumented Room DAO test',
+    ],
+    tech: ['Kotlin', 'Jetpack Compose', 'Material 3', 'Koin', 'Room', 'DataStore', 'Coroutines', 'Geofencing'],
+    image: '/images/entrix.jpg',
+    imageAlt:
+      'Entrix — dashboard, attendance history and settings screens in Material 3 dark theme.',
+    links: {
+      github: 'https://github.com/Nahian98/Entrix',
+      caseStudy: '#',
+    },
+    accent: 'violet',
+    featured: true,
+  },
   // {
   //   id: 'wifi-file-sharing',
   //   title: 'WiFi File Sharing App',
@@ -55,31 +81,6 @@ export const projects: Project[] = [
   //   },
   //   accent: 'blue',
   //   featured: true,
-  // },
-  // {
-  //   id: 'geo-attendance',
-  //   title: 'Geo Attendance Tracker',
-  //   tagline: 'Automatic office check-ins powered by geofencing.',
-  //   description:
-  //     'A workforce attendance app that logs office entry and exit automatically using geofences — no manual punch-in. Location history is captured efficiently in the background and presented as a clean timeline, with full offline support and deferred sync.',
-  //   tags: ['Location', 'Offline-first', 'Background'],
-  //   features: [
-  //     'Geofencing-based automatic entry/exit logging',
-  //     'Battery-conscious background location tracking',
-  //     'Visual timeline of location history',
-  //     'Offline support with deferred sync',
-  //     'Room-backed local store of attendance events',
-  //   ],
-  //   tech: ['Kotlin', 'Geofencing API', 'Room', 'Coroutines', 'WorkManager'],
-  //   imageAlt:
-  //     'PLACEHOLDER: Screenshot of the attendance app showing a daily timeline of office entries and a map with geofence radius.',
-  //   links: {
-  //     github: 'https://github.com/your-username/geo-attendance',
-  //     demo: '',
-  //     caseStudy: '#',
-  //   },
-  //   accent: 'violet',
-  //   featured: false,
   // },
 ];
 

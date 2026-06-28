@@ -67,6 +67,18 @@ export function ProjectCard({ project }: ProjectCardProps) {
             Featured
           </span>
         )}
+        {project.downloads && (
+          <span className="absolute bottom-6 left-6 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-background/70 px-3 py-1.5 backdrop-blur">
+            <Download className="h-3.5 w-3.5 text-accent" />
+            <span className="text-xs font-semibold text-foreground">
+              {project.downloads} <span className="text-accent">downloads</span>
+            </span>
+            <span className="relative flex h-1.5 w-1.5" title="Live on Google Play">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/70" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+            </span>
+          </span>
+        )}
       </div>
 
       {/* Body */}
@@ -82,29 +94,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <h3 className="mt-4 text-xl font-semibold tracking-tight text-foreground">
           {project.title}
         </h3>
-        <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{project.tagline}</p>
-
-        {/* Downloads highlight */}
-        {project.downloads && (
-          <div className="mt-4 inline-flex items-center gap-2.5 self-start rounded-xl border border-accent/30 bg-gradient-to-r from-accent/15 to-secondary/10 px-3 py-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-accent/15 text-accent">
-              <Download className="h-4 w-4" />
-            </span>
-            <span className="leading-tight">
-              <span className="block text-sm font-bold text-foreground">
-                {project.downloads}{' '}
-                <span className="font-semibold text-accent">downloads</span>
-              </span>
-              <span className="flex items-center gap-1 text-[11px] text-muted-foreground">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/70" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
-                </span>
-                Live on Google Play · worldwide
-              </span>
-            </span>
-          </div>
-        )}
+        <p className="mt-1.5 min-h-[2.75rem] text-sm leading-relaxed text-muted-foreground line-clamp-2">
+          {project.tagline}
+        </p>
 
         {/* Expandable case study */}
         <AnimatePresence initial={false}>
