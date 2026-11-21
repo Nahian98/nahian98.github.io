@@ -1,6 +1,5 @@
 import { FileText, Github, Linkedin, Mail, MapPin } from 'lucide-react';
 import { Button, Container } from '@/components/ui';
-import { ProfileImage } from '@/components/common';
 import { siteConfig } from '@/constants';
 import { withBasePath } from '@/lib/utils';
 
@@ -13,11 +12,20 @@ export function Hero() {
     <section id="top" aria-label="Introduction" className="pt-28 pb-14 sm:pt-36 sm:pb-16">
       <Container>
         <div className="flex items-center gap-5">
-          <ProfileImage
-            src={siteConfig.profileImage}
+          {/* Pre-cropped, pre-resized avatars (npm run gen:avatar) so the photo
+              stays sharp at every pixel density instead of being shrunk ~10x
+              by the browser. */}
+          <img
+            src={withBasePath('/images/avatar-96.jpg')}
+            srcSet={[96, 192, 288]
+              .map((w) => `${withBasePath(`/images/avatar-${w}.jpg`)} ${w}w`)
+              .join(', ')}
+            sizes="(min-width: 640px) 96px, 80px"
+            width={96}
+            height={96}
             alt={siteConfig.name}
-            ratio="aspect-square"
-            className="h-20 w-20 shrink-0 rounded-full sm:h-24 sm:w-24"
+            decoding="async"
+            className="h-20 w-20 shrink-0 rounded-full border border-border object-cover sm:h-24 sm:w-24"
           />
           <div>
             <h1 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">

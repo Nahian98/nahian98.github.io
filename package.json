@@ -10,6 +10,7 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "gen:assets": "node scripts/generate-assets.mjs",
+    "gen:avatar": "node scripts/generate-avatar.mjs",
     "serve": "npx serve@latest out"
   },
   "dependencies": {
