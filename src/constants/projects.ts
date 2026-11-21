@@ -24,15 +24,16 @@ export const projects: Project[] = [
     title: 'Entrix',
     metric: 'Open source',
     description:
-      'A privacy-first attendance tracker that logs office entry and exit with the Geofencing API. Everything stays on-device — no account, network or analytics.',
+      'A privacy-first Android app that records when you enter and leave your offices using the Geofencing API, then turns those visits into history, weekly and monthly reports, and PDF timesheets. No account or analytics; attendance data never leaves the device.',
     highlights: [
-      '14-module, feature-first Clean Architecture with pure Kotlin/JVM domain and model modules that enforce framework independence.',
-      'Idempotent ENTER → DWELL → EXIT geofence reconciliation that ignores boundary jitter while preserving the true entry time across process death.',
-      '24 JVM unit tests and an instrumented Room DAO test; GitHub Actions CI runs tests, lint and builds.',
+      '17-module, feature-first Clean Architecture with pure Kotlin/JVM domain and model modules, Koin DI and Gradle convention plugins.',
+      'Idempotent ENTER → DWELL → EXIT geofence reconciliation that ignores boundary jitter, keeps the true entry time across process death, and reopens a visit after a false exit within a 10-minute grace period.',
+      'Multiple offices placed on a Google Maps picker; reports with an interactive bar chart; on-device PDF timesheet export with no third-party libraries.',
+      '93 JVM unit tests, instrumented Room DAO and migration tests, and a Koin graph check; GitHub Actions runs tests, lint and release builds.',
     ],
-    tech: ['Kotlin', 'Jetpack Compose', 'Koin', 'Room', 'DataStore', 'Gradle convention plugins'],
+    tech: ['Kotlin', 'Jetpack Compose', 'Material 3', 'Koin', 'Room', 'DataStore', 'Geofencing API', 'Google Maps', 'Gradle convention plugins'],
     image: '/images/entrix.jpg',
-    imageAlt: 'Entrix — dashboard, attendance history and settings screens.',
+    imageAlt: 'Entrix — home, history and weekly report screens in dark theme.',
     links: {
       github: 'https://github.com/Nahian98/Entrix',
     },
