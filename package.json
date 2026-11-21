@@ -2,7 +2,7 @@
   "name": "android-engineer-portfolio",
   "version": "1.0.0",
   "private": true,
-  "description": "Premium portfolio website for a senior Android Engineer. Static-exported Next.js, deployable to GitHub Pages.",
+  "description": "Personal portfolio of Abdullah Al Nahian Kanon. Static-exported Next.js, deployed to GitHub Pages.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "framer-motion": "^11.3.19",
     "lucide-react": "^0.417.0",
     "next": "^14.2.35",
     "next-themes": "^0.3.0",

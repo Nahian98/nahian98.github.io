@@ -2,66 +2,55 @@ import { Github, Linkedin, Mail, FileText } from 'lucide-react';
 import type { NavItem, SocialLink } from '@/types';
 
 /**
- * Single source of truth for identity + links.
- *
- * EDIT THESE PLACEHOLDERS:
- * - `name`, `githubUsername`, `linkedin` are placeholders — replace with yours.
- * - `email` is pre-filled. `url` should match your final GitHub Pages URL.
- * - `basePath` is read from the build env (set automatically by CI); leave as-is.
+ * Single source of truth for identity + links. Keep this in sync with the
+ * resume in public/resume.pdf.
  */
 export const siteConfig = {
-  name: 'Abdullah Al Nahian Kanon', // TODO: replace with your full name
-  shortName: 'NK', // initials for the logo mark / favicon
-  role: 'Android Engineer',
+  name: 'Abdullah Al Nahian Kanon',
+  shortName: 'NK',
+  role: 'Software Engineer, Android',
+  location: 'Dhaka, Bangladesh',
   // Used in <title>, OpenGraph, and structured data.
-  title: 'Abdullah Al Nahian Kanon — Android Engineer',
+  title: 'Abdullah Al Nahian Kanon — Software Engineer, Android',
   description:
-    'Android Engineer crafting fast, reliable and thoughtfully engineered mobile experiences with Kotlin, Jetpack Compose and clean architecture.',
-  // Live URL. CI injects this automatically (actions/configure-pages -> base_url)
-  // via NEXT_PUBLIC_SITE_URL; the fallback is only used for local builds. TODO:
-  // set the fallback to your real URL, e.g. https://username.github.io/MyPortFolio
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://your-username.github.io/MyPortFolio',
+    'Software Engineer with 3+ years of experience building production Android apps in Kotlin. Clean Architecture, Jetpack Compose, networking and media. Shipped a Google Play app with 500K+ downloads.',
+  // CI injects the live URL (actions/configure-pages -> base_url).
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://nahian98.github.io',
   locale: 'en_US',
   email: 'abdullahalnahiankanon@gmail.com',
-  githubUsername: 'Nahian98', // TODO: replace
+  githubUsername: 'Nahian98',
   links: {
-    github: 'https://github.com/Nahian98', // TODO: replace
-    linkedin: 'https://www.linkedin.com/in/abdullah-al-nahian-kanon-931594296?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app', // TODO: replace
+    github: 'https://github.com/Nahian98',
+    linkedin: 'https://www.linkedin.com/in/abdullah-al-nahian-kanon-931594296',
   },
-  // Path to the resume in /public. Drop a real PDF at this location.
   // `?v=` is a content hash computed in next.config.mjs (cache-busting).
   resumePath: process.env.NEXT_PUBLIC_RESUME_VERSION
     ? `/resume.pdf?v=${process.env.NEXT_PUBLIC_RESUME_VERSION}`
     : '/resume.pdf',
-  // Filename the browser saves the resume as when downloaded.
   resumeFileName: 'Abdullah Al Nahian Kanon - Resume.pdf',
-  // Profile photo in /public. Drop your image here; until it exists the About
-  // section shows a placeholder automatically. JPG/PNG/WebP all work.
   profileImage: '/images/profile.jpg',
-  // Keywords for SEO.
   keywords: [
-    'Android Developer',
     'Android Engineer',
+    'Software Engineer',
     'Kotlin',
     'Jetpack Compose',
-    'MVVM',
     'Clean Architecture',
+    'MVVM',
+    'MVI',
     'Coroutines',
     'Flow',
-    'Mobile Engineer',
-    'ExoPlayer',
     'Media3',
+    'ExoPlayer',
+    'Ktor',
   ],
 } as const;
 
 /** Order = scroll order. Each `id` must match a section's DOM id. */
 export const navItems: NavItem[] = [
   { label: 'About', id: 'about' },
-  { label: 'Skills', id: 'skills' },
-  { label: 'Stack', id: 'stack' },
-  { label: 'Projects', id: 'projects' },
   { label: 'Experience', id: 'experience' },
-  { label: 'Open Source', id: 'open-source' },
+  { label: 'Projects', id: 'projects' },
+  { label: 'Skills', id: 'skills' },
   { label: 'Contact', id: 'contact' },
 ];
 
@@ -70,13 +59,13 @@ export const socialLinks: SocialLink[] = [
     label: 'GitHub',
     href: siteConfig.links.github,
     icon: Github,
-    handle: `@${siteConfig.githubUsername}`,
+    handle: `github.com/${siteConfig.githubUsername}`,
   },
   {
     label: 'LinkedIn',
     href: siteConfig.links.linkedin,
     icon: Linkedin,
-    handle: 'in/your-username',
+    handle: 'linkedin.com/in/abdullah-al-nahian-kanon',
   },
   {
     label: 'Email',
@@ -88,6 +77,6 @@ export const socialLinks: SocialLink[] = [
     label: 'Resume',
     href: siteConfig.resumePath,
     icon: FileText,
-    handle: 'Download PDF',
+    handle: 'PDF',
   },
 ];

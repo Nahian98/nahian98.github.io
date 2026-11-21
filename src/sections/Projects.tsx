@@ -1,80 +1,84 @@
-'use client';
+import { ArrowUpRight } from 'lucide-react';
+import { Section } from '@/components/ui';
+import { projects } from '@/constants';
+import { withBasePath } from '@/lib/utils';
+import type { Project } from '@/types';
 
-import { useMemo, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Section, SectionHeading } from '@/components/ui';
-import { ProjectCard } from '@/components/project/ProjectCard';
-import { projects, projectFilters } from '@/constants';
-import { filterItem, easeOutExpo } from '@/animations/variants';
-import { usePrefersReducedMotion } from '@/hooks';
-import { cn } from '@/lib/utils';
+function ProjectLinks({ links }: { links: Project['links'] }) {
+  const items = [
+    links.playStore && { label: 'Google Play', href: links.playStore },
+    links.github && { label: 'Source code', href: links.github },
+    links.demo && { label: 'Demo', href: links.demo },
+  ].filter(Boolean) as { label: string; href: string }[];
 
-/**
- * Projects — the most important section. Filterable, animated grid of premium
- * project cards, each expandable into a case study. Filtering re-runs the
- * stagger reveal and animates cards in/out by layout.
- */
-export function Projects() {
-  const [filter, setFilter] = useState<string>('All');
-  const reduceMotion = usePrefersReducedMotion();
-
-  const visible = useMemo(
-    () => (filter === 'All' ? projects : projects.filter((p) => p.tags.includes(filter))),
-    [filter],
-  );
+  if (items.length === 0) return null;
 
   return (
-    <Section id="projects" aria-label="Projects">
-      <SectionHeading
-        eyebrow="Projects"
-        title="Things I've engineered."
-        description="A few applications where the interesting work was in the architecture, performance and platform depth — not just the screens."
-      />
+    <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+      {items.map(({ label, href }) => (
+        <a
+          key={label}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-sm font-medium text-foreground underline decoration-border-strong underline-offset-4 transition-colors hover:decoration-foreground"
+        >
+          {label}
+          <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+        </a>
+      ))}
+    </div>
+  );
+}
 
-      {/* Filters */}
-      <div className="mt-10 flex flex-wrap gap-2">
-        {projectFilters.map((f) => (
-          <button
-            key={f}
-            type="button"
-            onClick={() => setFilter(f)}
-            aria-pressed={filter === f}
-            className={cn(
-              'rounded-full border px-4 py-1.5 text-sm font-medium transition-all',
-              filter === f
-                ? 'border-accent bg-accent/10 text-accent'
-                : 'border-border bg-card text-muted-foreground hover:border-border-strong hover:text-foreground',
-            )}
-          >
-            {f}
-          </button>
+export function Projects() {
+  return (
+    <Section id="projects" title="Projects">
+      <ul className="space-y-14">
+        {projects.map((project) => (
+          <li key={project.id}>
+            <article className="grid gap-5 sm:grid-cols-[11rem_1fr] sm:gap-6">
+              {project.image ? (
+                <img
+                  src={withBasePath(project.image)}
+                  alt={project.imageAlt ?? ''}
+                  loading="lazy"
+                  decoding="async"
+                  className="aspect-[16/10] w-full rounded-md border border-border object-cover sm:w-44"
+                />
+              ) : (
+                <div className="hidden sm:block" aria-hidden />
+              )}
+
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <h3 className="text-base font-semibold text-foreground">{project.title}</h3>
+                  {project.metric && (
+                    <span className="text-sm text-muted-foreground">{project.metric}</span>
+                  )}
+                </div>
+
+                <p className="mt-2 text-[15px] leading-7 text-muted-foreground">
+                  {project.description}
+                </p>
+
+                <ul className="mt-3 list-disc space-y-1.5 pl-5 text-[15px] leading-7 text-muted-foreground marker:text-border-strong">
+                  {project.highlights.map((h) => (
+                    <li key={h}>{h}</li>
+                  ))}
+                </ul>
+
+                <p className="mt-3 text-sm text-muted-foreground">
+                  <span className="sr-only">Technologies: </span>
+                  {project.tech.join(' · ')}
+                </p>
+
+                <ProjectLinks links={project.links} />
+              </div>
+            </article>
+          </li>
         ))}
-      </div>
-
-      <motion.div
-        layout
-        className="mt-10 grid items-start gap-6 md:grid-cols-2 xl:grid-cols-3"
-      >
-        <AnimatePresence mode="popLayout">
-          {visible.map((project, index) => (
-            <motion.div
-              key={project.id}
-              layout
-              variants={filterItem}
-              initial={reduceMotion ? false : 'hidden'}
-              animate="visible"
-              exit="exit"
-              transition={{
-                duration: reduceMotion ? 0 : 0.4,
-                delay: reduceMotion ? 0 : Math.min(index * 0.06, 0.4),
-                ease: easeOutExpo,
-              }}
-            >
-              <ProjectCard project={project} />
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </motion.div>
+      </ul>
     </Section>
   );
 }

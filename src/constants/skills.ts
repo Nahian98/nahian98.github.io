@@ -1,70 +1,30 @@
-import {
-  Smartphone,
-  Code2,
-  Layers,
-  Network,
-  Database,
-  Workflow,
-  Wrench,
-  Gauge,
-} from 'lucide-react';
-import type { SkillCategory } from '@/types';
+import type { SkillGroup } from '@/types';
 
-/** Grouped skill categories rendered as hover-animated cards. */
-export const skillCategories: SkillCategory[] = [
+/** Technical skills, grouped the same way as on the resume. */
+export const skillGroups: SkillGroup[] = [
+  { label: 'Languages', items: ['Kotlin', 'Java', 'SQL'] },
   {
-    title: 'Android',
-    icon: Smartphone,
-    description: 'Native platform depth, from SDK internals to background work.',
-    skills: [
-      'Native Android',
-      'Android SDK',
-      'Background Services',
-      'Offline-first',
-      'Custom Views',
-      'Material Design',
-    ],
+    label: 'Architecture',
+    items: ['Clean Architecture', 'MVVM', 'MVI', 'Multi-module / feature-first design', 'Dependency injection'],
   },
   {
-    title: 'Kotlin',
-    icon: Code2,
-    description: 'Idiomatic, expressive Kotlin with a focus on correctness.',
-    skills: ['Kotlin', 'Coroutines', 'Flow', 'Sealed Types', 'Extensions', 'Null-safety'],
+    label: 'Concurrency & Data',
+    items: ['Coroutines', 'Flow / StateFlow', 'Room', 'Realm', 'SQLite', 'MySQL', 'DataStore'],
   },
   {
-    title: 'UI / Compose',
-    icon: Layers,
-    description: 'Declarative and classic UI with pixel-level polish.',
-    skills: ['Jetpack Compose', 'XML UI', 'Animations', 'Theming', 'Accessibility'],
+    label: 'Networking',
+    items: ['REST', 'Retrofit', 'OkHttp', 'Volley', 'Ktor', 'WebSockets', 'NanoHTTPD', 'FTPS', 'Cloud storage SDKs'],
   },
   {
-    title: 'Architecture',
-    icon: Workflow,
-    description: 'Scalable, testable foundations that survive feature growth.',
-    skills: ['MVVM', 'Clean Architecture', 'Modularization', 'Dependency Injection', 'Use Cases'],
+    label: 'Platform',
+    items: ['Android SDK', 'Jetpack Compose', 'XML Views', 'Services & background work', 'Media3 / ExoPlayer'],
   },
   {
-    title: 'Networking',
-    icon: Network,
-    description: 'Resilient I/O, custom servers and device-to-device transfer.',
-    skills: ['Ktor', 'OkHttp', 'Retrofit', 'WebSockets', 'File Sharing'],
+    label: 'Testing',
+    items: ['JUnit', 'MockK', 'Turbine', 'Coroutines Test', 'Instrumented tests', 'Android Lint'],
   },
   {
-    title: 'Databases',
-    icon: Database,
-    description: 'Local persistence with offline-first sync strategies.',
-    skills: ['Room', 'Realm', 'SQLite', 'DataStore', 'Caching'],
-  },
-  {
-    title: 'Media & Performance',
-    icon: Gauge,
-    description: 'Smooth playback and a relentless eye on frame budgets.',
-    skills: ['Media3', 'ExoPlayer', 'Performance Tuning', 'Profiling', 'Memory'],
-  },
-  {
-    title: 'Tooling & DevOps',
-    icon: Wrench,
-    description: 'A fast, automated path from commit to production.',
-    skills: ['Gradle', 'Git', 'GitHub Actions', 'Firebase', 'CI/CD'],
+    label: 'Tooling',
+    items: ['Git', 'GitHub Actions CI/CD', 'Gradle (Kotlin DSL, convention plugins, version catalogs)'],
   },
 ];

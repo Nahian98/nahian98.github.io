@@ -22,7 +22,7 @@ const PROFILE = join(PUBLIC, 'images', 'profile.jpg');
 // ── Identity (keep in sync with src/constants/site.ts) ───────────────────────
 const NAME = 'Abdullah Al Nahian Kanon';
 const MONO = 'NK';
-const ROLE = 'Android Engineer';
+const ROLE = 'Software Engineer, Android';
 const TAGLINE_1 = 'Fast, reliable, thoughtfully';
 const TAGLINE_2 = 'engineered mobile experiences.';
 const KEYWORDS = 'Kotlin · Jetpack Compose · Clean Architecture';

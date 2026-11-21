@@ -4,31 +4,31 @@ import type { ReactNode } from 'react';
 
 interface SectionProps {
   id: string;
+  title: string;
   children: ReactNode;
   className?: string;
-  /** When false, children render full-bleed without the inner Container. */
-  contained?: boolean;
-  'aria-label'?: string;
 }
 
 /**
- * Standard page section: consistent vertical rhythm + scroll-margin so the
- * sticky navbar never covers the heading on anchor navigation.
+ * Standard page section. On wide screens the heading sits in a narrow left
+ * column next to the content (a resume-style layout); on small screens it
+ * stacks above. A top border separates consecutive sections.
  */
-export function Section({
-  id,
-  children,
-  className,
-  contained = true,
-  'aria-label': ariaLabel,
-}: SectionProps) {
+export function Section({ id, title, children, className }: SectionProps) {
+  const headingId = `${id}-heading`;
   return (
-    <section
-      id={id}
-      aria-label={ariaLabel}
-      className={cn('scroll-mt-24 py-20 sm:py-28', className)}
-    >
-      {contained ? <Container>{children}</Container> : children}
+    <section id={id} aria-labelledby={headingId} className={cn('scroll-mt-20', className)}>
+      <Container>
+        <div className="grid gap-6 border-t border-border py-14 sm:py-16 md:grid-cols-[10rem_1fr] md:gap-10">
+          <h2
+            id={headingId}
+            className="text-sm font-semibold uppercase tracking-wider text-muted-foreground md:pt-1"
+          >
+            {title}
+          </h2>
+          <div className="min-w-0">{children}</div>
+        </div>
+      </Container>
     </section>
   );
 }

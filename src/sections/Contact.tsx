@@ -1,103 +1,59 @@
 'use client';
 
-import { Check, Copy, Mail, ArrowUpRight, Eye, Download } from 'lucide-react';
-import { Section, Button } from '@/components/ui';
-import { Reveal } from '@/components/common';
-import { socialLinks, siteConfig } from '@/constants';
+import { Check, Copy } from 'lucide-react';
+import { Section } from '@/components/ui';
+import { siteConfig, socialLinks } from '@/constants';
 import { useCopyToClipboard } from '@/hooks';
 import { withBasePath } from '@/lib/utils';
-import { cn } from '@/lib/utils';
 
-/**
- * Contact CTA. A single, calm card: a clear headline, a one-click copy-email
- * control, and the key links. Kept backend-free — email is a mailto + clipboard,
- * no form submission to a server (which static export can't host anyway).
- */
 export function Contact() {
   const { copied, copy } = useCopyToClipboard();
 
   return (
-    <Section id="contact" aria-label="Contact">
-      <Reveal>
-        <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-8 sm:p-12">
-          {/* Ambient accent glow */}
-          <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-accent/15 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-24 -left-20 h-64 w-64 rounded-full bg-secondary/15 blur-3xl" />
+    <Section id="contact" title="Contact">
+      <p className="max-w-2xl text-[15px] leading-7 text-muted-foreground">
+        I&apos;m open to Android and mobile engineering roles. Email is the best way to
+        reach me.
+      </p>
 
-          <div className="relative mx-auto max-w-2xl text-center">
-            <span className="inline-flex items-center gap-2 text-sm font-medium text-accent">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-              Contact
-            </span>
-            <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-              Let&apos;s build something well-engineered.
-            </h2>
-            <p className="mx-auto mt-4 max-w-prose text-balance text-base leading-relaxed text-muted-foreground">
-              I&apos;m open to interesting Android roles and collaborations. The
-              fastest way to reach me is email — I read every message.
-            </p>
+      <div className="mt-5 flex flex-wrap items-center gap-3">
+        <a
+          href={`mailto:${siteConfig.email}`}
+          className="text-base font-medium text-foreground underline decoration-border-strong underline-offset-4 transition-colors hover:decoration-foreground"
+        >
+          {siteConfig.email}
+        </a>
+        <button
+          type="button"
+          onClick={() => copy(siteConfig.email)}
+          aria-label={copied ? 'Email copied' : 'Copy email address'}
+          className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-sm text-muted-foreground transition-colors hover:bg-surface hover:text-foreground"
+        >
+          {copied ? <Check className="h-3.5 w-3.5" aria-hidden /> : <Copy className="h-3.5 w-3.5" aria-hidden />}
+          {copied ? 'Copied' : 'Copy'}
+        </button>
+      </div>
 
-            {/* Email + copy */}
-            <div className="mx-auto mt-8 flex max-w-md flex-col items-stretch gap-2 sm:flex-row">
-              <a
-                href={`mailto:${siteConfig.email}`}
-                className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-xl border border-border bg-surface px-4 text-sm font-medium text-foreground transition-colors hover:border-border-strong"
-              >
-                <Mail className="h-4 w-4 text-accent" />
-                {siteConfig.email}
-              </a>
-              <button
-                type="button"
-                onClick={() => copy(siteConfig.email)}
-                aria-label={copied ? 'Email copied' : 'Copy email address'}
-                className={cn(
-                  'inline-flex h-12 items-center justify-center gap-2 rounded-xl border px-4 text-sm font-medium transition-colors',
-                  copied
-                    ? 'border-accent bg-accent/10 text-accent'
-                    : 'border-border bg-surface text-muted-foreground hover:border-border-strong hover:text-foreground',
-                )}
-              >
-                {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                {copied ? 'Copied' : 'Copy'}
-              </button>
-            </div>
-
-            {/* Primary actions */}
-            <div className="mt-6 flex flex-wrap justify-center gap-3">
-              <Button as="a" href={withBasePath(siteConfig.resumePath)} download={siteConfig.resumeFileName}>
-                <Download className="h-4 w-4" />
-                Download Resume
-              </Button>
-              <Button
-                as="a"
-                href={withBasePath(siteConfig.resumePath)}
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="secondary"
-              >
-                <Eye className="h-4 w-4" />
-                View
-              </Button>
-              {socialLinks
-                .filter((l) => l.label === 'GitHub' || l.label === 'LinkedIn')
-                .map(({ label, href, icon: Icon }) => (
-                  <Button
-                    key={label}
-                    as="a"
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    variant="secondary"
-                  >
-                    <Icon className="h-4 w-4" />
-                    {label}
-                    <ArrowUpRight className="h-4 w-4" />
-                  </Button>
-                ))}
-            </div>
-          </div>
-        </div>
-      </Reveal>
+      <ul className="mt-6 space-y-2">
+        {socialLinks
+          .filter((l) => l.label !== 'Email')
+          .map(({ label, href, handle }) => {
+            const url = label === 'Resume' ? withBasePath(href) : href;
+            return (
+              <li key={label} className="flex gap-3 text-[15px]">
+                <span className="w-20 shrink-0 text-muted-foreground">{label}</span>
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground underline decoration-border-strong underline-offset-4 transition-colors hover:decoration-foreground"
+                >
+                  {handle}
+                </a>
+              </li>
+            );
+          })}
+      </ul>
     </Section>
   );
 }

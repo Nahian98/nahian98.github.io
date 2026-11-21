@@ -1,28 +1,14 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Manrope, JetBrains_Mono } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import './globals.css';
 import { siteConfig } from '@/constants';
 import { Providers } from '@/components/layout';
 import { JsonLd } from '@/components/common/JsonLd';
 
-/*
- * Fonts are self-hosted at build time by next/font (no runtime request to
- * Google), which keeps the site fast and CSP-friendly. Manrope is the display
- * face for headings; Inter handles body text; JetBrains Mono is for code-ish bits.
- */
+/* Inter, self-hosted at build time by next/font (no runtime Google request). */
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
-  display: 'swap',
-});
-const manrope = Manrope({
-  subsets: ['latin'],
-  variable: '--font-display',
-  display: 'swap',
-});
-const mono = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-mono',
   display: 'swap',
 });
 
@@ -89,8 +75,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: dark)', color: '#09090B' },
-    { media: '(prefers-color-scheme: light)', color: '#FAFAFB' },
+    { media: '(prefers-color-scheme: dark)', color: '#0C0C0E' },
+    { media: '(prefers-color-scheme: light)', color: '#FFFFFF' },
   ],
   width: 'device-width',
   initialScale: 1,
@@ -101,7 +87,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${manrope.variable} ${mono.variable}`}
+      className={inter.variable}
     >
       <body className="min-h-screen font-sans antialiased">
         <JsonLd />

@@ -2,26 +2,21 @@ import { forwardRef } from 'react';
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
-type Variant = 'primary' | 'secondary' | 'ghost' | 'outline';
-type Size = 'sm' | 'md' | 'lg';
+type Variant = 'primary' | 'secondary' | 'ghost';
+type Size = 'sm' | 'md';
 
 const base =
-  'group relative inline-flex select-none items-center justify-center gap-2 rounded-xl font-medium transition-all duration-200 ease-out-expo focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50';
+  'inline-flex select-none items-center justify-center gap-2 rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50';
 
 const variants: Record<Variant, string> = {
-  primary:
-    'bg-accent text-accent-foreground shadow-soft hover:shadow-glow hover:-translate-y-0.5 active:translate-y-0',
-  secondary:
-    'bg-card text-foreground border border-border hover:border-border-strong hover:bg-card-hover hover:-translate-y-0.5 active:translate-y-0',
-  outline:
-    'border border-border-strong text-foreground hover:bg-card hover:-translate-y-0.5 active:translate-y-0',
-  ghost: 'text-muted-foreground hover:text-foreground hover:bg-card',
+  primary: 'bg-foreground text-background hover:bg-foreground/85',
+  secondary: 'border border-border text-foreground hover:border-border-strong hover:bg-surface',
+  ghost: 'text-muted-foreground hover:text-foreground hover:bg-surface',
 };
 
 const sizes: Record<Size, string> = {
-  sm: 'h-9 px-3.5 text-sm',
-  md: 'h-11 px-5 text-sm',
-  lg: 'h-12 px-6 text-base',
+  sm: 'h-9 px-3 text-sm',
+  md: 'h-10 px-4 text-sm',
 };
 
 interface CommonProps {
@@ -43,10 +38,7 @@ type ButtonAsLink = CommonProps &
 
 type ButtonProps = ButtonAsButton | ButtonAsLink;
 
-/**
- * Polymorphic button. Renders a `<button>` by default or an `<a>` when `as="a"`,
- * so the same visual treatment serves both actions and links (CTAs, downloads).
- */
+/** Polymorphic button: a `<button>` by default, or an `<a>` with `as="a"`. */
 export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
   function Button({ variant = 'primary', size = 'md', className, children, ...props }, ref) {
     const classes = cn(base, variants[variant], sizes[size], className);
