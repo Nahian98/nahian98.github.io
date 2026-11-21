@@ -1,7 +1,7 @@
 import { ArrowUpRight } from 'lucide-react';
 import { Section } from '@/components/ui';
 import { projects } from '@/constants';
-import { withBasePath } from '@/lib/utils';
+import { ProjectImage } from '@/components/project/ProjectImage';
 import type { Project } from '@/types';
 
 function ProjectLinks({ links }: { links: Project['links'] }) {
@@ -39,13 +39,7 @@ export function Projects() {
           <li key={project.id}>
             <article className="grid gap-5 sm:grid-cols-[11rem_1fr] sm:gap-6">
               {project.image ? (
-                <img
-                  src={withBasePath(project.image)}
-                  alt={project.imageAlt ?? ''}
-                  loading="lazy"
-                  decoding="async"
-                  className="aspect-[16/10] w-full rounded-md border border-border object-cover sm:w-44"
-                />
+                <ProjectImage src={project.image} alt={project.imageAlt ?? project.title} />
               ) : (
                 <div className="hidden sm:block" aria-hidden />
               )}
