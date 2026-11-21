@@ -29,7 +29,10 @@ export const siteConfig = {
     linkedin: 'https://www.linkedin.com/in/abdullah-al-nahian-kanon-931594296?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app', // TODO: replace
   },
   // Path to the resume in /public. Drop a real PDF at this location.
-  resumePath: '/resume.pdf',
+  // `?v=` is a content hash computed in next.config.mjs (cache-busting).
+  resumePath: process.env.NEXT_PUBLIC_RESUME_VERSION
+    ? `/resume.pdf?v=${process.env.NEXT_PUBLIC_RESUME_VERSION}`
+    : '/resume.pdf',
   // Filename the browser saves the resume as when downloaded.
   resumeFileName: 'Abdullah Al Nahian Kanon - Resume.pdf',
   // Profile photo in /public. Drop your image here; until it exists the About
