@@ -40,3 +40,6 @@ next-env.d.ts
 
 # portable tooling (local node, etc.)
 /.tools/
+
+# resume build venv
+.venv-resume/
