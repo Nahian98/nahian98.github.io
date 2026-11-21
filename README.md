@@ -37,7 +37,7 @@ npm run lint         # next lint
 npm run gen:assets   # regenerate favicons + OG image from the SVG template
 ```
 
-> Node 18.17+ is required (20 recommended — see `.nvmrc`).
+> Node 18.17+ is required (22 recommended — see `.nvmrc`).
 
 ---
 
