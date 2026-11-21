@@ -13,8 +13,8 @@ export const projects: Project[] = [
       'Cloud music sync from Google Drive, OneDrive, Dropbox and Box to local storage via Volley and OkHttp.',
     ],
     tech: ['Kotlin', 'Media3', 'ExoPlayer', 'Realm', 'MVVM', 'Jetpack Compose'],
-    image: '/images/offlineMusicPlayer.jpg',
-    imageAlt: 'Offline Music Player — now-playing screen.',
+    image: '/images/offline-music-player.jpg',
+    imageAlt: 'Offline Music Player — Now Playing, Equalizer and cloud Import screens.',
     links: {
       playStore: 'https://play.google.com/store/apps/details?id=com.offlinemusicplayer',
     },
