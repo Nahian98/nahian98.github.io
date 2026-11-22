@@ -38,10 +38,28 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       maxWidth: {
-        content: '56rem',
+        content: '72rem',
         prose: '68ch',
+      },
+      keyframes: {
+        'fade-up': {
+          from: { opacity: '0', transform: 'translateY(14px)' },
+          to: { opacity: '1', transform: 'none' },
+        },
+        ping: {
+          '75%, 100%': { transform: 'scale(2.2)', opacity: '0' },
+        },
+        blink: {
+          '0%, 49%': { opacity: '1' },
+          '50%, 100%': { opacity: '0' },
+        },
+      },
+      animation: {
+        'fade-up': 'fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both',
+        blink: 'blink 1.1s step-end infinite',
       },
     },
   },

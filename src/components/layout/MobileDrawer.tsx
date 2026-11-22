@@ -36,8 +36,8 @@ export function MobileDrawer({ open, activeId, onClose }: MobileDrawerProps) {
       aria-modal="true"
       aria-label="Navigation menu"
     >
-      <div className="absolute inset-0 bg-background/80" onClick={onClose} />
-      <nav className="absolute inset-x-0 top-0 border-b border-border bg-background px-5 pb-6 pt-3">
+      <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" onClick={onClose} />
+      <nav className="absolute inset-x-3 top-3 rounded-2xl border border-border bg-card px-4 pb-4 pt-2 shadow-2xl">
         <div className="flex h-10 items-center justify-end">
           <button
             type="button"
@@ -55,9 +55,9 @@ export function MobileDrawer({ open, activeId, onClose }: MobileDrawerProps) {
                 href={`#${item.id}`}
                 onClick={onClose}
                 className={cn(
-                  'block rounded-md px-3 py-3 text-base transition-colors',
+                  'block rounded-xl px-3 py-3 text-base transition-colors',
                   activeId === item.id
-                    ? 'bg-surface text-foreground'
+                    ? 'bg-accent/10 text-accent'
                     : 'text-muted-foreground hover:bg-surface hover:text-foreground',
                 )}
               >

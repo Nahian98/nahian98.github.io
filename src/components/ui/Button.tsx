@@ -6,17 +6,19 @@ type Variant = 'primary' | 'secondary' | 'ghost';
 type Size = 'sm' | 'md';
 
 const base =
-  'inline-flex select-none items-center justify-center gap-2 rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50';
+  'inline-flex select-none items-center justify-center gap-2 rounded-xl font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50';
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-foreground text-background hover:bg-foreground/85',
-  secondary: 'border border-border text-foreground hover:border-border-strong hover:bg-surface',
+  primary:
+    'bg-accent text-accent-foreground shadow-[0_0_0_1px_rgb(var(--accent)/0.4),0_8px_30px_-8px_rgb(var(--accent)/0.55)] hover:-translate-y-0.5 hover:shadow-[0_0_0_1px_rgb(var(--accent)/0.6),0_12px_36px_-8px_rgb(var(--accent)/0.7)]',
+  secondary:
+    'border border-border bg-card/60 text-foreground backdrop-blur hover:-translate-y-0.5 hover:border-border-strong hover:bg-card-hover',
   ghost: 'text-muted-foreground hover:text-foreground hover:bg-surface',
 };
 
 const sizes: Record<Size, string> = {
   sm: 'h-9 px-3 text-sm',
-  md: 'h-10 px-4 text-sm',
+  md: 'h-11 px-5 text-sm',
 };
 
 interface CommonProps {

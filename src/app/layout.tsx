@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { siteConfig } from '@/constants';
 import { Providers } from '@/components/layout';
@@ -11,6 +11,16 @@ const inter = Inter({
   variable: '--font-sans',
   display: 'swap',
 });
+
+const mono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
+});
+
+/* Opt in to scroll-reveal styles only when JS runs, before first paint, so
+   no-JS visitors and crawlers always see the full content. */
+const revealScript = `document.documentElement.classList.add('js-reveal')`;
 
 /*
  * Next does NOT auto-prefix manually-configured metadata icon/manifest URLs with
@@ -75,8 +85,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: dark)', color: '#0C0C0E' },
-    { media: '(prefers-color-scheme: light)', color: '#FFFFFF' },
+    { media: '(prefers-color-scheme: dark)', color: '#090A0C' },
+    { media: '(prefers-color-scheme: light)', color: '#FAFAF9' },
   ],
   width: 'device-width',
   initialScale: 1,
@@ -87,8 +97,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
-      className={inter.variable}
+      className={`${inter.variable} ${mono.variable}`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: revealScript }} />
+      </head>
       <body className="min-h-screen font-sans antialiased">
         <JsonLd />
         <Providers>

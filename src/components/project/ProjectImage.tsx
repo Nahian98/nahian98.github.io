@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { X } from 'lucide-react';
+import { Maximize2, X } from 'lucide-react';
 import { withBasePath } from '@/lib/utils';
 
 interface ProjectImageProps {
@@ -46,17 +46,18 @@ export function ProjectImage({ src, alt }: ProjectImageProps) {
         type="button"
         onClick={open}
         aria-label={`View larger: ${alt}`}
-        className="group block w-full self-start cursor-zoom-in rounded-md text-left"
+        className="group/img relative block w-full cursor-zoom-in overflow-hidden rounded-xl border border-border bg-background text-left"
       >
         <img
           src={url}
           alt={alt}
           loading="lazy"
           decoding="async"
-          className="aspect-[16/10] w-full rounded-md border border-border object-cover transition-colors group-hover:border-border-strong"
+          className="aspect-[16/10] w-full object-cover transition-transform duration-700 ease-out group-hover/img:scale-[1.03]"
         />
-        <span className="mt-1.5 block text-xs text-muted-foreground transition-colors group-hover:text-foreground">
-          Click to enlarge
+        <span className="pointer-events-none absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-black/60 px-2.5 py-1 text-xs text-white/90 opacity-0 backdrop-blur transition-opacity group-hover/img:opacity-100 group-focus-visible/img:opacity-100">
+          <Maximize2 className="h-3 w-3" aria-hidden />
+          Enlarge
         </span>
       </button>
 

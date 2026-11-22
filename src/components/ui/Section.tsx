@@ -1,33 +1,42 @@
 import { cn } from '@/lib/utils';
 import { Container } from './Container';
+import { Reveal } from './Reveal';
 import type { ReactNode } from 'react';
 
 interface SectionProps {
   id: string;
   title: string;
+  /** Monospace index shown above the title, e.g. "01". */
+  index?: string;
+  /** One-line lead under the title. */
+  lead?: ReactNode;
   children: ReactNode;
   className?: string;
 }
 
 /**
- * Standard page section. On wide screens the heading sits in a narrow left
- * column next to the content (a resume-style layout); on small screens it
- * stacks above. A top border separates consecutive sections.
+ * Standard page section: a numbered monospace eyebrow, a large title and an
+ * optional lead line, followed by the section content.
  */
-export function Section({ id, title, children, className }: SectionProps) {
+export function Section({ id, title, index, lead, children, className }: SectionProps) {
   const headingId = `${id}-heading`;
   return (
-    <section id={id} aria-labelledby={headingId} className={cn('scroll-mt-20', className)}>
+    <section id={id} aria-labelledby={headingId} className={cn('relative py-16 sm:py-24', className)}>
       <Container>
-        <div className="grid gap-6 border-t border-border py-14 sm:py-16 md:grid-cols-[10rem_1fr] md:gap-10">
+        <Reveal className="mb-10 sm:mb-14">
+          <p className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-accent">
+            {index && <span>{index}</span>}
+            <span className="h-px w-10 bg-accent/50" aria-hidden />
+            <span className="text-muted-foreground">{title}</span>
+          </p>
           <h2
             id={headingId}
-            className="text-sm font-semibold uppercase tracking-wider text-muted-foreground md:pt-1"
+            className="mt-4 max-w-3xl text-3xl font-semibold tracking-tight text-foreground text-balance sm:text-4xl"
           >
-            {title}
+            {lead ?? title}
           </h2>
-          <div className="min-w-0">{children}</div>
-        </div>
+        </Reveal>
+        {children}
       </Container>
     </section>
   );

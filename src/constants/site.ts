@@ -80,3 +80,11 @@ export const socialLinks: SocialLink[] = [
     handle: 'PDF',
   },
 ];
+
+/** Headline numbers in the hero. Every figure here must be verifiable. */
+export const stats: { value: string; label: string }[] = [
+  { value: '3+', label: 'Years shipping Android professionally' },
+  { value: '500K+', label: 'Downloads on Google Play' },
+  { value: '17', label: 'Modules in a Clean Architecture app' },
+  { value: '93', label: 'JVM unit tests in one open-source project' },
+];
