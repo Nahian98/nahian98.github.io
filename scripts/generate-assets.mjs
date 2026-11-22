@@ -10,7 +10,7 @@
  * headshot) on the right; if that file is missing it renders text-only.
  */
 import sharp from 'sharp';
-import { mkdir } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -35,8 +35,7 @@ const STATS = [
 // Rasterized by librsvg with system fonts; the site's Inter / JetBrains Mono
 // fall back to these close matches when not installed.
 const FONT = "Inter, 'Helvetica Neue', Arial, sans-serif";
-const MONO_FONT = "'JetBrains Mono', Menlo, monospace";
-const FAVICON_FONT = "'Segoe UI', 'Helvetica Neue', Arial, sans-serif";
+const MONO_FONT = "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace";
 
 // Design tokens (mirror src/app/globals.css, dark theme)
 const C = {
@@ -57,14 +56,29 @@ const PH = 390;
 const PX = 800;
 const PY = 96;
 
-const faviconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#3DDC84"/><stop offset="1" stop-color="#4F8EF7"/>
-  </linearGradient></defs>
-  <rect x="2" y="2" width="60" height="60" rx="16" fill="#18181B" stroke="#27272A" stroke-width="2"/>
-  <text x="50%" y="52%" dominant-baseline="middle" text-anchor="middle" font-family="${FAVICON_FONT}" font-size="24" font-weight="800" fill="url(#g)">${MONO}</text>
-  <circle cx="50" cy="16" r="5" fill="#3DDC84"/>
+/**
+ * Favicon = the navbar logo: solid accent tile, dark monospace monogram.
+ * - 'tile': rounded square with transparent corners (browser tabs, PWA "any").
+ * - 'bleed': full-bleed square for platforms that apply their own mask
+ *   (iOS home screen, Android maskable icons); the monogram is shrunk to sit
+ *   inside the maskable safe zone.
+ * - 'small': like 'tile' with a larger, tighter monogram so it stays legible
+ *   when rasterized at 16/32px.
+ */
+const faviconSvg = (variant = 'tile') => {
+  const bleed = variant === 'bleed';
+  const small = variant === 'small';
+  const size = bleed ? 22 : small ? 36 : 29;
+  const spacing = small ? -3 : -0.5;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  ${
+    bleed
+      ? `<rect width="64" height="64" fill="${C.accent}"/>`
+      : `<rect width="64" height="64" rx="14" fill="${C.accent}"/>`
+  }
+  <text x="32" y="33" dominant-baseline="middle" text-anchor="middle" font-family="${MONO_FONT}" font-size="${size}" font-weight="700" letter-spacing="${spacing}" fill="${C.accentFg}">${MONO}</text>
 </svg>`;
+};
 
 const hasPhoto = existsSync(PROFILE);
 // Without a photo the code card moves up into the photo's place.
@@ -193,11 +207,14 @@ async function main() {
     console.log('Done.');
     return;
   }
-  await png(faviconSvg, 16, 'favicon-16x16.png');
-  await png(faviconSvg, 32, 'favicon-32x32.png');
-  await png(faviconSvg, 180, 'apple-touch-icon.png');
-  await png(faviconSvg, 192, 'icon-192.png');
-  await png(faviconSvg, 512, 'icon-512.png');
+  await writeFile(join(PUBLIC, 'favicon.svg'), faviconSvg('tile'));
+  console.log('  ✓ favicon.svg');
+  await png(faviconSvg('small'), 16, 'favicon-16x16.png');
+  await png(faviconSvg('small'), 32, 'favicon-32x32.png');
+  await png(faviconSvg('bleed'), 180, 'apple-touch-icon.png');
+  await png(faviconSvg('tile'), 192, 'icon-192.png');
+  await png(faviconSvg('tile'), 512, 'icon-512.png');
+  await png(faviconSvg('bleed'), 512, 'icon-maskable-512.png');
   await buildOg();
   console.log('Done.');
 }
